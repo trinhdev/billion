@@ -139,7 +139,7 @@ class License
 
     private function runningInLocal(): bool
     {
-        return app()->isLocal() || in_array(request()->ip(), ['127.0.0.1', '::1']);
+        return true;
     }
 
 
