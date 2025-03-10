@@ -1,4 +1,4 @@
-<div class="coupon-wrap" x-data="{ showCouponModal: false, couponCode: '' }">
+<div class="coupon-wrap container" x-data="{ showCouponModal: false, couponCode: '' }">
     <!-- Ô nhập mã giảm giá -->
     <div class="d-flex">
         <input
@@ -33,7 +33,7 @@
                         <li>
                             <label
                                 :for="'coupon-' + coupon.code"
-                                x-text="coupon.code + ' - ' + formatCurrency(coupon.value.amount)"></label>
+                                x-text="'[' + coupon.code + '] ' + formatCurrency(coupon.value.amount)"></label>
                             <input
                                 type="radio"
                                 :id="'coupon-' + coupon.code"
@@ -84,7 +84,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 1000;
+        z-index: 10000;
     }
 
     /* Modal Content */
