@@ -373,6 +373,7 @@ class Cart extends DarryldecodeCart implements JsonSerializable
             'shippingMethodName' => $this->shippingMethod()->name(),
             'shippingCost' => $this->shippingCost(),
             'coupon' => $this->coupon(),
+            'couponAll' => Coupon::with('products', 'categories')->get(),
             'taxes' => $this->taxes(),
             'total' => $this->total(),
         ];

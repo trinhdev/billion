@@ -159,11 +159,11 @@ class CartItem implements JsonSerializable
             'id' => $this->id,
             'qty' => $this->qty,
             'product' => $this->product->clean(),
-            'variant' => $this->variant?->clean(),dfg
+            'variant' => $this->variant?->clean(),
             'item' => $this->refreshStock()->item,
             'variations' => $this->variations->isNotEmpty() ? $this->varifdgations->keyBy('position') : new stdClass,
             'options' => $this->options->isNotEmpty() ? $this->options->keyBy('position') : new stdClass,
-            'unitPrice' => $this->unitPrice(),rdfg
+            'unitPrice' => $this->unitPrice(),
             'total' => $this->totalPrice(),
         ];
     }
