@@ -1,12 +1,5 @@
 <div x-data="{
-    cart: @js($cart),
-    formatCurrency(value, isPercent = 0) {
-        if (isPercent === 1) return parseInt(value) + '%';
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
-    },
-    showCouponModal: false,
-    couponCode: '',
-    couponError: null
+    showCouponModal: false
 }" x-init="console.log(cart.availableCoupon)">
     <div class="coupon-wrap container">
         <!-- Ô nhập mã giảm giá -->
@@ -26,16 +19,14 @@
                 {{ trans('storefront::checkout.apply') }}
             </button>
         </div>
-        <div class="order-summary order-summary-bottom">
-            <div class="d-flex m-t-5">
+        <div class="d-flex m-t-5 find-button">
                 <button
                     type="button"
-                    class="btn btn-primary btn-place-order"
+                    class="btn btn-default"
                     @click="showCouponModal = true">
-                    {{ __('Hoặc tìm mã giảm giá khả dụng') }}
+                    {{ __('Chọn mã giảm giá khả dụng') }}
                 </button>
             </div>
-        </div>
 
         <!-- Modal danh sách mã giảm giá -->
         <template x-if="showCouponModal">
@@ -57,7 +48,7 @@
                             <li>
                                 <label
                                     :for="'coupon-' + availableCoupon.code"
-                                    x-text="'[' + availableCoupon.code + '] ' + (availableCoupon.is_percent === 1 ? formatCurrency(availableCoupon.value, 1) : formatCurrency(availableCoupon.value.amount))"></label>
+                                    x-text="'[' + availableCoupon.code + '] Giảm ' + (availableCoupon.is_percent === 1 ? parseInt(availableCoupon.value) + '%' : formatCurrency(availableCoupon.value.amount)) + (availableCoupon.free_shipping ? ' + Freeship' : '')"></label>
                                 <input
                                     type="radio"
                                     :id="'coupon-' + availableCoupon.code"
@@ -170,6 +161,9 @@
             color: #333;
             cursor: pointer;
         }
+        .find-button {
+            padding-top: 10px;
+        }
         /* ẩn css đè */
         .category-nav {
             z-index: 0;
@@ -189,5 +183,3 @@
         }
     </style>
 </div>
-
-<script src="//unpkg.com/alpinejs" defer></script>
