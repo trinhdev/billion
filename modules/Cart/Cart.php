@@ -373,9 +373,22 @@ class Cart extends DarryldecodeCart implements JsonSerializable
             'shippingMethodName' => $this->shippingMethod()->name(),
             'shippingCost' => $this->shippingCost(),
             'coupon' => $this->coupon(),
+            'availableCoupon' => $this->availableCoupon(),
             'taxes' => $this->taxes(),
             'total' => $this->total(),
         ];
+    }
+
+    public function availableCoupon()
+    {
+        return Coupon::where('is_active', true)
+        ->get()
+        ->filter(function ($coupon) {
+            return $coupon->valid() && // Kiểm tra thời gian hợp lệ
+                   !$coupon->perCouponUsageLimitReached() && // Giới hạn sử dụng toàn cục
+                   !$coupon->didNotSpendTheRequiredAmount() && // Chi tiêu tối thiểu
+                   !$coupon->spentMoreThanMaximumAmount(); // Chi tiêu tối đa
+        });
     }
 
 
