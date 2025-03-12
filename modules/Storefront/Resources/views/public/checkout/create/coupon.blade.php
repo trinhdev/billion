@@ -1,12 +1,5 @@
 <div x-data="{
-    cart: @js($cart),
-    formatCurrency(value, isPercent = 0) {
-        if (isPercent === 1) return parseInt(value) + '%';
-        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
-    },
-    showCouponModal: false,
-    couponCode: '',
-    couponError: null
+    showCouponModal: false
 }" x-init="console.log(cart.availableCoupon)">
     <div class="coupon-wrap container">
         <!-- Ô nhập mã giảm giá -->
@@ -57,7 +50,7 @@
                             <li>
                                 <label
                                     :for="'coupon-' + availableCoupon.code"
-                                    x-text="'[' + availableCoupon.code + '] ' + (availableCoupon.is_percent === 1 ? formatCurrency(availableCoupon.value, 1) : formatCurrency(availableCoupon.value.amount))"></label>
+                                    x-text="'[' + availableCoupon.code + '] ' + (availableCoupon.is_percent === 1 ? parseInt(availableCoupon.value) + '%' : formatCurrency(availableCoupon.value.amount))"></label>
                                 <input
                                     type="radio"
                                     :id="'coupon-' + availableCoupon.code"
@@ -189,5 +182,3 @@
         }
     </style>
 </div>
-
-<script src="//unpkg.com/alpinejs" defer></script>

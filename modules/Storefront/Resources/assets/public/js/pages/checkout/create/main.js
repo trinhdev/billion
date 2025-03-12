@@ -377,29 +377,34 @@ Alpine.data(
             }
         },
 
-        applyCoupon() {
+        async applyCoupon() {
             if (!this.couponCode) {
                 return;
             }
-
+            
             this.loadingOrderSummary = true;
             this.applyingCoupon = true;
-
-            axios
-                .post(route("cart.coupon.store"), { coupon: this.couponCode })
-                .then((response) => {
-                    this.couponCode = null;
-                    this.couponError = null;
-
-                    this.$store.state.updateCart(response.data);
-                })
-                .catch((error) => {
-                    this.couponError = error.response.data.message;
-                })
-                .finally(() => {
-                    this.loadingOrderSummary = false;
-                    this.applyingCoupon = false;
+        
+            try {
+                // Gọi API áp dụng coupon
+                const couponResponse = await axios.post(route("cart.coupon.store"), { 
+                    coupon: this.couponCode 
                 });
+        
+                this.couponCode = null;
+                this.couponError = null;
+        
+                // Cập nhật giỏ hàng sau khi áp coupon
+                this.$store.state.updateCart(couponResponse.data);
+        
+                // Gọi updateShippingMethod để reload giá shipping
+                await this.updateShippingMethod(this.form.shipping_method || 'default_shipping');
+            } catch (error) {
+                this.couponError = error.response?.data?.message || 'Đã xảy ra lỗi';
+            } finally {
+                this.loadingOrderSummary = false;
+                this.applyingCoupon = false;
+            }
         },
 
         removeCoupon() {

@@ -242,7 +242,6 @@ class Cart extends DarryldecodeCart implements JsonSerializable
     public function applyCoupon(Coupon $coupon)
     {
         $this->removeCoupon();
-
         try {
             $this->condition(
                 new CartCondition([
