@@ -23,7 +23,6 @@
                 <div class="checkout-inner">
                     <div class="checkout-left">
                         @include('storefront::public.checkout.create.form.account_details')
-                        @include('storefront::public.checkout.create.form.billing_details')
                         @include('storefront::public.checkout.create.form.shipping_details')
                         @include('storefront::public.checkout.create.form.order_note')
                     </div>

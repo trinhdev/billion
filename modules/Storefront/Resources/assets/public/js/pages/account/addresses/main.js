@@ -9,11 +9,13 @@ Alpine.data(
         formOpen: false,
         editing: false,
         loading: false,
-        form: { state: "" },
-        states: {},
+        form: { city: "", district: "", ward: "",  },
+        city: {},
+        district: {},
+        ward: {},
         errors: new Errors(),
 
-        get firstCountry() {
+        get firstcity() {
             return Object.keys(this.countries)[0];
         },
 
@@ -26,7 +28,7 @@ Alpine.data(
         },
 
         init() {
-            this.changeCountry(this.firstCountry);
+            this.fetchCity();
         },
 
         changeDefaultAddress(address) {
@@ -46,24 +48,67 @@ Alpine.data(
                 });
         },
 
-        changeCountry(country) {
-            this.form.country = country;
-            this.form.state = "";
+        changeCity(provinceId) {
+            this.form.city = provinceId;
+            this.form.district = "";
+            this.form.ward = "";
 
-            this.fetchStates(country);
+            this.fetchCity(provinceId);
         },
-
-        async fetchStates(country, callback) {
-            const response = await axios.get(
-                route("countries.states.index", { code: country })
-            );
-
-            this.states = response.data;
-
-            if (callback) {
-                callback();
+        async fetchCity(provinceId) {
+            try {
+                const response = await axios.get(
+                    route("countries.states.city")
+                );
+                const data = response.data; // Dữ liệu đã là object
+                this.city = data.data;
+                this.fetchDistricts(provinceId);
+            } catch (error) {
+                console.error('Lỗi fetchCity:', error);
             }
         },
+
+
+        changeDistrict(districtId) {
+            this.form.district = districtId;
+            this.form.ward = "";
+            this.fetchDistricts(this.form.city);
+        },
+        async fetchDistricts(provinceId) {
+            if (!provinceId) {
+                return;
+            }
+            try {
+                const response = await axios.get(
+                    route("countries.states.district", { code: provinceId })
+                );
+                const data = response.data; // Dữ liệu đã là object
+                this.district = data.data;
+                this.fetchWard(this.form.district);
+            } catch (error) {
+                console.error('Lỗi fetchDistricts:', error);
+            }
+        },
+
+        changeWard(wardId) {
+            this.form.ward = wardId;
+            this.fetchWard(this.form.district);
+        },
+        async fetchWard(districtId) {
+            try {
+                const response = await axios.get(
+                    route("countries.states.ward", { code: districtId })
+                );
+                const data = response.data; // Dữ liệu đã là object
+                this.ward = data.data;
+                console.log(this.form);
+            } catch (error) {
+                console.error('Lỗi fetchWard:', error);
+            }
+            // this.fetchDistricts(city);
+            // console.log(response);
+        },
+
 
         edit(address) {
             this.formOpen = true;
@@ -72,11 +117,11 @@ Alpine.data(
             this.$nextTick(() => {
                 this.form = { ...address };
 
-                this.fetchStates(address.country, () => {
-                    this.form.state = "";
+                this.fetchDistricts(address.city, () => {
+                    this.form.district = "";
 
                     this.$nextTick(() => {
-                        this.form.state = address.state;
+                        this.form.district = address.state;
                     });
                 });
             });

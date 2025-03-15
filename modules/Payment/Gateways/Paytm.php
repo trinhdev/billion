@@ -46,7 +46,7 @@ class Paytm implements GatewayInterface
         $paytm->prepare(
             [
                 'order' => $order->id,
-                'user' => "$order->customer_first_name $order->customer_last_name",
+                'user' => $order->customer_name,
                 'mobile_number' => $order->customer_phone,
                 'email' => $order->customer_email,
                 'amount' => $order->total->convertToCurrentCurrency()->round()->amount(),

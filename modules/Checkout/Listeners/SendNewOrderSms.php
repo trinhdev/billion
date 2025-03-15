@@ -57,7 +57,7 @@ class SendNewOrderSms
     private function customerMessage(Order $order)
     {
         return trans('sms::messages.order_has_been_placed', [
-            'first_name' => $order->customer_first_name,
+            'first_name' => $order->customer_name,
             'order_id' => $order->id,
         ]);
     }

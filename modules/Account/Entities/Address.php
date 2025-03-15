@@ -9,9 +9,7 @@ use Modules\Support\Eloquent\Model;
 
 class Address extends Model
 {
-    protected $fillable = ['first_name', 'last_name', 'address_1', 'address_2', 'city', 'state', 'zip', 'country'];
-
-    protected $appends = ['full_name', 'state_name', 'country_name'];
+    protected $fillable = ['full_name', 'phone', 'address', 'city', 'district', 'ward'];
 
 
     public function customer()
@@ -19,18 +17,10 @@ class Address extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    public function getFullNameAttribute()
-    {
-        return $this->first_name . ' ' . $this->last_name;
-    }
-
-
     public function getStateNameAttribute()
     {
         return State::name($this->country, $this->state);
     }
-
 
     public function getCountryNameAttribute()
     {

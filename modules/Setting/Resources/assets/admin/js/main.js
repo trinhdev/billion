@@ -92,25 +92,26 @@ $("#check_payment_enabled").on("change", () => {
     $("#check-payment-fields").toggleClass("hide");
 });
 
-$("#store_country").on("change", (e) => {
-    let oldState = $("#store_state").val();
+$("#shipping_city").on("change", (e) => {
+    let oldCity = $("#shipping_city").val();
 
     $.ajax({
         type: "GET",
-        url: route("countries.states.index", e.currentTarget.value),
-        success(states) {
-            $(".store-state").addClass("hide");
+        url: route("countries.states.city", e.currentTarget.value),
+        success(response) {
+            let city = response.data;
+            $("#shipping_city").addClass("hide");
 
             if (_.isEmpty(states)) {
-                return $(".store-state.input")
+                return $("#shipping_city.input")
                     .removeClass("hide")
                     .find("input")
-                    .val(oldState);
+                    .val(oldCity);
             }
 
             let options = "";
 
-            for (let code in states) {
+            for (let code in city) {
                 options += `<option value="${code}">${states[code]}</option>`;
             }
 
@@ -118,13 +119,13 @@ $("#store_country").on("change", (e) => {
                 .removeClass("hide")
                 .find("select")
                 .html(options)
-                .val(oldState);
+                .val(oldCity);
         },
     });
 });
 
 $(function () {
-    $("#store_country").trigger("change");
+    $("#shipping_city").trigger("change");
 
     if ($("#logo").hasClass("active")) {
         $("#logo")

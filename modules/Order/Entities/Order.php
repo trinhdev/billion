@@ -180,7 +180,7 @@ class Order extends Model
 
     public function getCustomerFullNameAttribute()
     {
-        return "{$this->customer_first_name} {$this->customer_last_name}";
+        return $this->customer_name;
     }
 
 
@@ -192,7 +192,7 @@ class Order extends Model
 
     public function getShippingFullNameAttribute()
     {
-        return "{$this->shipping_first_name} {$this->shipping_last_name}";
+        return "{$this->shipping_name}";
     }
 
 
@@ -216,7 +216,7 @@ class Order extends Model
 
     public function getShippingStateNameAttribute()
     {
-        return State::name($this->shipping_country, $this->shipping_state);
+        return State::name($this->shipping_country, $this->shipping_district);
     }
 
 
@@ -293,7 +293,7 @@ class Order extends Model
      */
     public function table()
     {
-        $query = $this->newQuery()->select(['id', 'customer_first_name', 'customer_last_name', 'customer_email', 'currency', 'total', 'status', 'created_at']);
+        $query = $this->newQuery()->select(['id', 'customer_name', 'customer_email', 'currency', 'total', 'status', 'created_at']);
 
         return new OrderTable($query);
     }

@@ -66,14 +66,12 @@ class NullAddress implements Arrayable
     public function toArray()
     {
         return [
-            'first_name' => $this->null,
-            'last_name' => $this->null,
-            'address_1' => $this->null,
-            'address_2' => $this->null,
-            'country' => $this->null,
-            'state' => $this->null,
-            'city' => $this->null,
-            'zip' => $this->null,
+            'full_name' => $this->null,
+            'phone' => $this->null,
+            'address' => $this->null,
+            'ward' => $this->null,
+            'district' => $this->null,
+            'city' => $this->null
         ];
     }
 }

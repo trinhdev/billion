@@ -75,17 +75,17 @@ class PayPal implements GatewayInterface
             'intent' => 'CAPTURE',
             'payer' => [
                 'name' => [
-                    'given_name' => $order->customer_first_name,
-                    'surname' => $order->customer_last_name,
+                    'given_name' => $order->customer_name,
+                    'surname' => $order->customer_name,
                 ],
                 'email_address' => $order->customer_email,
                 'address' => [
-                    'address_line_1' => $order->billing_address_1,
-                    'address_line_2' => $order->billing_address_2,
+                    'address_line_1' => $order->shipping_address,
+                    'address_line_2' => $order->shipping_address,
                     'admin_area_2' => $order->billing_city,
-                    'admin_area_1' => $order->billing_state,
-                    'postal_code' => $order->billing_zip,
-                    'country_code' => $order->billing_country,
+                    'admin_area_1' => $order->shipping_district,
+                    'postal_code' => $order->shipping_ward,
+                    'country_code' => $order->shipping_city,
                 ],
             ],
             'purchase_units' => [
@@ -97,15 +97,15 @@ class PayPal implements GatewayInterface
                     ],
                     'shipping' => [
                         'name' => [
-                            'full_name' => $order->customer_full_name,
+                            'full_name' => $order->customer_name,
                         ],
                         'address' => [
-                            'address_line_1' => $order->shipping_address_1,
-                            'address_line_2' => $order->shipping_address_2,
-                            'admin_area_2' => $order->shipping_city,
-                            'admin_area_1' => $order->shipping_state,
-                            'postal_code' => $order->shipping_zip,
-                            'country_code' => $order->shipping_country,
+                            'address_line_1' => $order->shipping_address,
+                            'address_line_2' => $order->shipping_address,
+                            'admin_area_2' => $order->billing_city,
+                            'admin_area_1' => $order->shipping_district,
+                            'postal_code' => $order->shipping_ward,
+                            'country_code' => $order->shipping_city,
                         ],
                     ],
                 ],

@@ -38,8 +38,8 @@ class PayFast implements GatewayInterface
             'merchant_key' => setting('payfast_merchant_key'),
             'return_url' => $this->getRedirectUrl($order, $reference),
             'cancel_url' => $this->getPaymentFailedUrl($order),
-            'name_first' => $order->customer_first_name,
-            'name_last' => $order->customer_last_name,
+            'name_first' => $order->customer_name,
+            'name_last' => $order->customer_name,
             'email_address' => $order->customer_email,
             'm_payment_id' => $reference,
             'amount' => number_format(

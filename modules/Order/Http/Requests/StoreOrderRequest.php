@@ -52,7 +52,7 @@ class StoreOrderRequest extends Request
                 'terms_and_conditions' => 'accepted',
                 'shipping_method' => Cart::allItemsAreVirtual() ? 'nullable' : 'required',
             ],
-            $this->billingAddressRules(),
+            // $this->billingAddressRules(),
             $this->shippingAddressRules()
         );
     }
@@ -81,13 +81,12 @@ class StoreOrderRequest extends Request
     private function shippingAddressRules()
     {
         return [
-            'shipping.first_name' => 'required_if:ship_to_a_different_address,1',
-            'shipping.last_name' => 'required_if:ship_to_a_different_address,1',
-            'shipping.address_1' => 'required_if:ship_to_a_different_address,1',
+            'shipping.full_name' => 'required_if:ship_to_a_different_address,1',
+            'shipping.phone' => 'required_if:ship_to_a_different_address,1',
+            'shipping.address' => 'required_if:ship_to_a_different_address,1',
             'shipping.city' => 'required_if:ship_to_a_different_address,1',
-            'shipping.zip' => 'required_if:ship_to_a_different_address,1',
-            'shipping.country' => ['required_if:ship_to_a_different_address,1', Rule::in(Country::supportedCodes())],
-            'shipping.state' => 'required_if:ship_to_a_different_address,1',
+            'shipping.district' => 'required_if:ship_to_a_different_address,1',
+            'shipping.ward' => 'required_if:ship_to_a_different_address,1',
         ];
     }
 }

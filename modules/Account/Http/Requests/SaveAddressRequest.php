@@ -22,13 +22,12 @@ class SaveAddressRequest extends Request
     public function rules()
     {
         return [
-            'first_name' => ['required'],
-            'last_name' => ['required'],
-            'address_1' => ['required'],
+            'full_name' => ['required'],
+            'phone' => ['required'],
+            'address' => ['required'],
             'city' => ['required'],
-            'zip' => ['required'],
-            'country' => ['required'],
-            'state' => ['required'],
+            'district' => ['required'],
+            'ward' => ['required']
         ];
     }
 }

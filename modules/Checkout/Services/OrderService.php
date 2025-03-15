@@ -58,7 +58,6 @@ class OrderService
         if (auth()->guest()) {
             return;
         }
-
         if ($request->newBillingAddress) {
             $address = auth()
                 ->user()
@@ -80,14 +79,12 @@ class OrderService
     private function extractAddress($data)
     {
         return [
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'address_1' => $data['address_1'],
-            'address_2' => $data['address_2'] ?? null,
+            'full_name' => $data['full_name'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
             'city' => $data['city'],
-            'state' => $data['state'],
-            'zip' => $data['zip'],
-            'country' => $data['country'],
+            'district' => $data['state'],
+            'ward' => $data['zip']
         ];
     }
 
@@ -124,24 +121,13 @@ class OrderService
             'customer_id' => auth()->id(),
             'customer_email' => $request->customer_email,
             'customer_phone' => $request->customer_phone,
-            'customer_first_name' => $request->billing['first_name'],
-            'customer_last_name' => $request->billing['last_name'],
-            'billing_first_name' => $request->billing['first_name'],
-            'billing_last_name' => $request->billing['last_name'],
-            'billing_address_1' => $request->billing['address_1'],
-            'billing_address_2' => $request->billing['address_2'] ?? null,
-            'billing_city' => $request->billing['city'],
-            'billing_state' => $request->billing['state'],
-            'billing_zip' => $request->billing['zip'],
-            'billing_country' => $request->billing['country'],
-            'shipping_first_name' => $request->shipping['first_name'],
-            'shipping_last_name' => $request->shipping['last_name'],
-            'shipping_address_1' => $request->shipping['address_1'],
-            'shipping_address_2' => $request->shipping['address_2'] ?? null,
+            'customer_name' => $request->billing['customer_name'],
+            'shipping_name' => $request->shipping['shipping_name'],
+            'shipping_phone' => $request->shipping['phone'],
+            'shipping_address' => $request->shipping['address'],
             'shipping_city' => $request->shipping['city'],
-            'shipping_state' => $request->shipping['state'],
-            'shipping_zip' => $request->shipping['zip'],
-            'shipping_country' => $request->shipping['country'],
+            'shipping_district' => $request->shipping['district'],
+            'shipping_ward' => $request->shipping['ward'],
             'sub_total' => Cart::subTotal()->amount(),
             'shipping_method' => Cart::shippingMethod()->name(),
             'shipping_cost' => Cart::shippingCost()->amount(),

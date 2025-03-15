@@ -4,7 +4,7 @@
     <template x-if="hasAddress">
         <div x-cloak class="address-card-wrap">
             <div class="row">
-                <template x-for="address in addresses" :key="address.id">
+                <template x-for="address in addresses" :key="address.id" x-init="console.log(addresses)">
                     <div class="col d-flex">
                         <address
                             class="address-card"
@@ -26,14 +26,7 @@
                             
                             <div class="address-card-data">
                                 <span x-text="address.full_name"></span>
-                                <span x-text="address.address_1"></span>
-
-                                <template x-if="address.address_2">
-                                    <span x-text="address.address_2"></span>
-                                </template>
-
-                                <span x-html="`${address.city}, ${address.state_name ?? address.state} ${address.zip}`"></span>
-                                <span x-text="address.country_name"></span>
+                                <span x-text="address.address"></span>
                             </div>
                         </address>
                     </div>

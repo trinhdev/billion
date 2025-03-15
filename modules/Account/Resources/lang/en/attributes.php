@@ -2,12 +2,11 @@
 
 return [
     'addresses' => [
-        'first_name' => 'First Name',
-        'last_name' => 'Last Name',
-        'address_1' => 'Address Line 1',
+        'full_name' => 'Full Name',
+        'phone' => 'Phone Number',
+        'address' => 'Address',
         'city' => 'City',
-        'zip' => 'Postcode / ZIP',
-        'country' => 'Country',
-        'state' => 'State / Province',
+        'district' => 'District',
+        'ward' => 'Ward'
     ],
 ];

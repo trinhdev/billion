@@ -46,8 +46,7 @@ class DashboardController
     {
         return Order::select([
             'id',
-            'customer_first_name',
-            'customer_last_name',
+            'customer_name',
             'total',
             'status',
             'created_at',

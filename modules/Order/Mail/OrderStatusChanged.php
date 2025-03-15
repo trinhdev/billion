@@ -35,7 +35,7 @@ class OrderStatusChanged extends Mailable implements ShouldQueue
 
     public function getHeading($order)
     {
-        return trans('storefront::mail.hello', ['name' => $order->customer_first_name]);
+        return trans('storefront::mail.hello', ['name' => $order->customer_name]);
     }
 
 

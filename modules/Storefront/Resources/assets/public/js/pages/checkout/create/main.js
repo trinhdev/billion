@@ -314,9 +314,10 @@ Alpine.data(
         },
 
         fetchStates(country, callback) {
-            axios
-                .get(route("countries.states.index", { code: country }))
+            let data = axios
+                .get(route("countries.states.city", { code: country }))
                 .then(callback);
+                console.log(data);
         },
 
         changeBillingState(state) {

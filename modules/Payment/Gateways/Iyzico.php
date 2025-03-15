@@ -144,8 +144,8 @@ class Iyzico implements GatewayInterface
         $buyer = new Buyer();
 
         $buyer->setId($this->order->customer_id ?? uniqid('guest_'));
-        $buyer->setName($this->order->customer_first_name);
-        $buyer->setSurname($this->order->customer_last_name);
+        $buyer->setName($this->order->customer_name);
+        $buyer->setSurname($this->order->customer_name);
         $buyer->setGsmNumber($this->order->customer_phone);
         $buyer->setEmail($this->order->customer_email);
         $buyer->setIdentityNumber(uniqid('iyzico_'));

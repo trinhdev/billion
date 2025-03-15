@@ -19,7 +19,7 @@ class DefaultAddress extends Model
 
     public function getAddress1Attribute()
     {
-        return $this->address->address_1;
+        return $this->address->address;
     }
 
 
